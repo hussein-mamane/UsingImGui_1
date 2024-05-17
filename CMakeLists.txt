@@ -7,6 +7,7 @@ cmake_policy(SET CMP0072 NEW) # this is not needed in CLion (that I use) but it 
 # glfw3 is here
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 link_directories(${CMAKE_SOURCE_DIR}/lib)
+#include() #load and run another CMake code
 # for building the libimgui.a, cmake  will search in cmake-build-debug,
 # it will not find imgui files, so add them globally
 include_directories(${CMAKE_SOURCE_DIR}/imgui)
@@ -45,16 +46,17 @@ add_library("imgui" STATIC ${IMGUI_GLOB}) # build a libimgui.a
 find_package(OpenGL REQUIRED)
 add_executable(
         usingDearImGui_1 main.cpp
-#            dependencies_code/glad.c # to use glad
-#            dependencies_code/glad.h # not needed
-#            dependencies_code/stb.cpp  # to use stb textures
 #        ${IMGUI_SRC} # not needed
 #        ${DEPENDENCIES}# not needed
 )
 
+add_executable(opengl1 testogl.cpp dependencies_code/glad.c dependencies_code/stb.cpp)
+
 #add_executable(usingDearImGui_1_2 main2.cpp)
 target_include_directories( usingDearImGui_1 PUBLIC ${IMGUI_PATH})
+target_include_directories( opengl1 PUBLIC ${IMGUI_PATH})
 target_link_libraries(usingDearImGui_1 PUBLIC imgui glfw3 ${OPENGL_LIBRARIES})
+target_link_libraries(opengl1 PUBLIC imgui glfw3 ${OPENGL_LIBRARIES})
 #target_link_libraries(imgui PRIVATE glfw3)
 
 # imgui is here
