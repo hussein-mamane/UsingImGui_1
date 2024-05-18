@@ -226,6 +226,7 @@ int main()
 */
     glViewport(0, 0, bufferWidth, bufferHeight);
 
+    bool show_some_window = false;
     create_triangle();
     create_shaders();
     create_framebuffer();
@@ -250,8 +251,7 @@ int main()
     ImGui_ImplGlfw_InitForOpenGL(mainWindow, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-    while (!glfwWindowShouldClose(mainWindow))
-    {
+    while (!glfwWindowShouldClose(mainWindow)) {
         glfwPollEvents();
 
         ImGui_ImplOpenGL3_NewFrame();
@@ -260,8 +260,22 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+
         ImGui::NewFrame();
+
+        // upper case S
+        if(ImGui::IsKeyPressed(ImGuiKey_S)){
+            show_some_window = !show_some_window;
+        }
+        if (show_some_window) {
+            ImGui::Begin("Housseini");
+            ImGui::Button("Housseini");
+            ImGui::End();
+        }
+
+
         ImGui::Begin("My Scene");
+
 
         const float window_width = ImGui::GetContentRegionAvail().x;
         const float window_height = ImGui::GetContentRegionAvail().y;
